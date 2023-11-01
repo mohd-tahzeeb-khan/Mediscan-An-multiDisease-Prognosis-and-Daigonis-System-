@@ -15,7 +15,7 @@ brain_model=load_model("")
 
 class predict:
     def __init__():
-
+        pass
 app=Flask(__name__)
 app.secret_key="secret key"
 @app.route("/", methods=['GET', 'POST'])
@@ -27,3 +27,6 @@ def credits():
 @app.route("/help", methods=["GET"])
 def help():
     return render_template("help.html")
+
+if __name__=="__main__":
+    app.run(threaded=True)
