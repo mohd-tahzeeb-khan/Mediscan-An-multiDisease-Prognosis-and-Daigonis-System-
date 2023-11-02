@@ -1,2 +1,2 @@
-# Mediscan-An-multiDisease-Prognosis-and-Daigonis-System-
+# Mediscan-An-multiDisease-Prognosis-and-Diagnosis-System-
 ..
