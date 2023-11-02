@@ -1,0 +1,130 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,700;1,400&family=Roboto:wght@400;700&display=swap');
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+body {
+  font-family:"poppins", sans-sarif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+header {
+  position: fixed;
+  top:0;
+  width:100%;
+  background-color: aliceblue;
+  color: #76b1fd;
+  padding: 10px;
+  text-align: center;
+  z-index: 1;
+}
+
+
+
+/* sidebar start */
+sidebar{
+  position: fixed;
+  right:0;
+  background-color: #151b18;
+  height: 100%; 
+  width: 12rem;
+}
+sidebar li{
+  position:relative;
+  top:10rem;
+  margin-left:20px;
+  padding: 10px;
+  list-style-type: none;
+}
+
+sidebar li a{
+  color: #fff;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1.2rem;
+  
+}
+.head{
+  margin-top:4.2rem;
+  text-align: center;
+  background: rgb(133, 241, 129);
+}
+#icon{
+  margin-right: 15px;
+}
+/* sidebar end */
+
+
+.container-index{
+  padding-inline:4rem;
+  padding-block:2rem;
+  margin-top:4rem;
+  margin-right: 9rem;
+  background-color: #cdfae1;
+}
+.content-container-index{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.main-content{
+    max-width: 35rem; 
+}
+.main-content>h2{
+  font-size: 2.5rem;
+  
+}
+.main-content>p{
+  font-family: "Roboto",sans-sarif;
+  line-height:1.8rem;
+}
+
+/* comapines section */
+.company-container{
+  padding-inline:5rem;
+  margin-top:2rem;
+  margin-right: 9rem;
+}
+
+.company-section{
+  margin-block:20px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid black;
+}
+.obj{
+  text-align: center;
+  padding-bottom: 10px;
+  
+}
+.logos{
+  display:flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-items: center;
+}
+
+/* companies-section end*/
+
+
+
+
+@media only screen and (max-width: 768px) {
+  main {
+    flex-direction: column;
+  }
+  .content-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+  }
+}
