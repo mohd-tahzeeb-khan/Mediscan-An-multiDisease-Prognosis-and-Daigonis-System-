@@ -1,21 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="diagnosis.css">
-    <title>Dignosis page</title>
-
-
-</head>
-
-<body>
-    <header>
-        <h1>Medical Website</h1>
-    </header>
+{% extends 'base.html' %}
+    {% block content %}
 
 
     <main>
@@ -109,6 +93,4 @@
             window.location.href = 'diabetesform.html';
         }
     </script>
-</body>
-
-</html>
+    {% endblock %}

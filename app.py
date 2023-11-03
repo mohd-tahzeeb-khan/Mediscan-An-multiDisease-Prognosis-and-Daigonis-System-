@@ -23,10 +23,10 @@ def home():
     return render_template("index.html")
 @app.route("/credits", methods=["GET"])
 def credits():
-    return render_template("credits.html")
+    return render_template("upload.html")
 @app.route("/help", methods=["GET"])
 def help():
-    return render_template("help.html")
+    return render_template("diganosis.html")
 
 if __name__=="__main__":
     app.run(threaded=True)
