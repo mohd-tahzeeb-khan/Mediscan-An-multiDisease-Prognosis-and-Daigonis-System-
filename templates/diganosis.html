@@ -1,21 +1,6 @@
 {% extends 'base.html' %}
-    {% block content %}
 
-
-    <main>
-        <sidebar>
-            <section class="head">
-                <h2>MediScan App</h2>
-            </section>
-            <ul>
-                <li><a href="index.html"><i id="icon" class="fa fa-home"></i>Home</a></li>
-                <li><a href="diganosis.html"><i id="icon" class="fa fa-stethoscope"></i>Diagnosis</a></li>
-                <li><a href=""><i id="icon" class="fa fa-star"></i>Credit</a></li>
-                <li><a href=""><i id="icon" class="fa fa-info-circle"></i>About</a></li>
-            </ul>
-        </sidebar>
-
-    
+        {% block content %}
         <section class="content-container-diagnosis">
             <h1>Diagnosis of Disease</h1>
             <div class="container-diagnosis">
@@ -47,7 +32,7 @@
                         <div class="card-title">Brain Disease</div>
                         <div class="card-description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitis
                             autem animi earum accusamus modi accusantium, ex fugit eligendi aut laboriosam.</div>
-                            <button class="predict-button" onclick="redirectToPredictionPage()">Predict</button>
+                            <button class="predict-button" href="/diabetes">Predict</button>
                     </div>
                 </div>
                 <!-- Card 4 -->
@@ -87,7 +72,7 @@
     </main>
     <script>
         function redirectToPredictionPage() {
-            window.location.href = 'upload.html';
+            window.location.href = '/diabetes';
         }
         function redirectToDiabetesPage() {
             window.location.href = 'diabetesform.html';
