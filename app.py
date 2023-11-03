@@ -21,12 +21,19 @@ app.secret_key="secret key"
 @app.route("/", methods=['GET', 'POST'])
 def home():
     return render_template("index.html")
+@app.route("/diagnosis", methods=['GET'])
+def diagnosis():
+    return render_template("diganosis.html")
+@app.route("/diabetes", methods=['GET','POST'])
+def diabetes():
+    return render_template("diabetesform.html")
 @app.route("/credits", methods=["GET"])
 def credits():
-    return render_template("upload.html")
-@app.route("/help", methods=["GET"])
+    return render_template("credit.html")
+@app.route("/about", methods=["GET"])
 def help():
-    return render_template("diganosis.html")
+    return render_template("help.html")
+
 
 if __name__=="__main__":
     app.run(threaded=True)
