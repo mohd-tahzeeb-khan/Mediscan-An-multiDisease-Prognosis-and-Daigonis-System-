@@ -7,11 +7,11 @@ from tensorflow.keras.utils import img_to_array
 from keras.models import load_model
 
 #loading models
-heart_model=load_model("")
-daibeties_model=load_model("")
-lungs_model=load_model("")
-skin_model=load_model("")
-brain_model=load_model("")
+# heart_model=load_model("")
+# daibeties_model=load_model("")
+# lungs_model=load_model("")
+# skin_model=load_model("")
+# brain_model=load_model("")
 
 class predict:
     def __init__():
