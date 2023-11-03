@@ -1,37 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  <!-- <link rel="stylesheet" href="style.css"> -->
-  <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}">
-  href="{{url_for('static',  filename='style.css')}}"
-  <title>Medical Website</title>
-
-</head>
-
-<body>
-  <header>
-    <h1>Medical Website</h1>
-  </header>
-
-
-  
-    <sidebar>
-      <section class="head">
-        <h2>MediScan App</h2>
-      </section>
-      <ul>
-        <li><a href="index.html"><i id="icon" class="fa fa-home"></i>Home</a></li>
-        <li><a href="diganosis.html"><i id="icon" class="fa fa-stethoscope"></i>Diagnosis</a></li>
-        <li><a href=""><i id="icon" class="fa fa-star"></i>Credit</a></li>
-        <li><a href=""><i id="icon" class="fa fa-info-circle"></i>About</a></li>
-      </ul>
-    </sidebar>
-
-
+{% extends 'base.html' %}
+{% block content %}
     <section class="container-index">
       <div class="content-container-index">
         <div class="main-content">
@@ -71,9 +39,4 @@
 
 
   </section>
-
-
-
-</body>
-
-</html>
+{% endblock %}
