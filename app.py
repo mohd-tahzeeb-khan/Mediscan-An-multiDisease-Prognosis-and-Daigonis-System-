@@ -14,7 +14,7 @@ from keras.models import load_model
 # brain_model=load_model("")
 
 class predict:
-    def __init__():
+    def __init__():#init function
         pass
 app=Flask(__name__)
 app.secret_key="secret key"
