@@ -13,9 +13,13 @@ from keras.models import load_model
 #skin_model=load_model("models\Skin_disease4.h5")
 #brain_model=load_model("models\brain_disease.h5")
 print("models loaded")
-class predict:
-    def __init__():#init function
-        pass
+def lungs_models_prediction(images):
+    test_image=load_img(images, target_size=(150, 150))
+    test_image = img_to_array(test_image)/255 # convert image to np array and normalize
+  test_image = np.expand_dims(test_image, axis = 0) # change dimention 3D to 4D
+   
+  result = model.predict(test_image).round(3) # predict diseased palnt or not
+  print('@@ Raw result = ', result)
 app=Flask(__name__)
 app.secret_key="secret key"
 @app.route("/", methods=['GET', 'POST'])
@@ -33,6 +37,17 @@ def credits():
 @app.route("/about", methods=["GET"])
 def help():
     return render_template("help.html")
+@app.route("/predict/lungs", mehtods=['POST'])
+def predict_lungs():
+    file=request.files['image']
+    filename=file.filename
+    if filename=="":
+        flash("Please Insert a Images", "error")
+        return render_template('index.html')
+    file_path = os.path.join('static/user uploaded', filename)
+    file.save(file_path)
+    pred, output_page=lungs_models_prediction(lungsImages=file_path)
+    return render_template(output_page, pred_output=pred, user_image=file_path)
 
 
 if __name__=="__main__":
