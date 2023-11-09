@@ -16,10 +16,10 @@ print("models loaded")
 def lungs_models_prediction(images):
     test_image=load_img(images, target_size=(150, 150))
     test_image = img_to_array(test_image)/255 # convert image to np array and normalize
-  test_image = np.expand_dims(test_image, axis = 0) # change dimention 3D to 4D
+    test_image = np.expand_dims(test_image, axis = 0) # change dimention 3D to 4D
    
-  result = model.predict(test_image).round(3) # predict diseased palnt or not
-  print('@@ Raw result = ', result)
+    result = model.predict(test_image).round(3) # predict diseased palnt or not
+    print('@@ Raw result = ', result)
 app=Flask(__name__)
 app.secret_key="secret key"
 @app.route("/", methods=['GET', 'POST'])
