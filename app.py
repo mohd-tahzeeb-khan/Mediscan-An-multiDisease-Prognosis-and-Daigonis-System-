@@ -8,10 +8,10 @@ from keras.models import load_model
 
 #loading models
 #heart_model=load_model("")
-daibeties_model=load_model("models\diabetes_model.pkl")
-lungs_model=load_model("models\Lungs_disease.h5")
-skin_model=load_model("models\Skin_disease4.h5")
-brain_model=load_model("models\brain_disease.h5")
+#daibeties_model=load_model("models\diabetes_model.pkl")
+#lungs_model=load_model("models\Lungs_disease.h5")
+#skin_model=load_model("models\Skin_disease4.h5")
+#brain_model=load_model("models\brain_disease.h5")
 print("models loaded")
 class predict:
     def __init__():#init function
