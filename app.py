@@ -28,9 +28,41 @@ def brain_models_prediction(brain_Images):
         return 'Menigioma', 'index.html'
     elif pred==2:
         return "NO Tumor", 'index.html'
-    
-# def lungs_models_prediction(lungs_Images):
-#     pass
+#-----------------------------------------------------------------------------------------------------------------    
+def lungs_models_prediction(lungs_Images):
+    test_image=load_img(kungs_Images, target_size=(224, 224))
+    test_image = img_to_array(test_image)/255 # convert image to np array and normalize
+    test_image = np.expand_dims(test_image, axis = 0) # change dimention 3D to 4D
+   
+    result = brain_model.predict(test_image).round(3) # predict diseased palnt or not
+    print('@@ Raw result = ', result)
+    pred=np.argmax(result)
+    if pred == 0:
+        return 'Bacterial Pneumonia', 'diganosis.html' # if index 0 burned leaf
+    elif pred==1:
+        return 'Normal', 'index.html'
+    elif pred==2:
+        return "Tuberculosis", 'index.html'
+    elif pred==3:
+        return "Viral Pneumonia", 'index.html'
+#----------------------------------------------------------------------------------------------------------
+def skin_models_prediction(skin_Images):
+    test_image=load_img(skin_Images, target_size=(224, 224))
+    test_image = img_to_array(test_image)/255 # convert image to np array and normalize
+    test_image = np.expand_dims(test_image, axis = 0) # change dimention 3D to 4D
+   
+    result = brain_model.predict(test_image).round(3) # predict diseased palnt or not
+    print('@@ Raw result = ', result)
+    pred=np.argmax(result)
+    if pred == 0:
+        return 'Acne', 'diganosis.html' # if index 0 burned leaf
+    elif pred==1:
+        return 'Normal', 'index.html'
+    elif pred==2:
+        return "Vascular Tumors", 'index.html'
+    elif pred==3:
+        return "Fungal", 'index.html'
+#------------------------------------------------------------------------------------------------------------
 app=Flask(__name__)
 app.secret_key="secret key"
 @app.route("/", methods=['GET', 'POST'])
