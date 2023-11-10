@@ -10,9 +10,9 @@ uploadedimges='static/userUpload'
 #loading models
 #heart_model=load_model("")
 #daibeties_model=load_model("models\diabetes_model.pkl")
-#lungs_model=load_model("models\Lungs_disease.h5")
-#skin_model=load_model("models\Skin_disease4.h5")
-brain_model=load_model("majorproject/brain_disease.h5")
+lungs_model=load_model("models\Lungs_disease.h5")
+skin_model=load_model("models\Skin_disease4.h5")
+brain_model=load_model("models\brain_disease.h5")
 print("models loaded")
 def brain_models_prediction(brain_Images):
     test_image=load_img(brain_Images, target_size=(224, 224))
