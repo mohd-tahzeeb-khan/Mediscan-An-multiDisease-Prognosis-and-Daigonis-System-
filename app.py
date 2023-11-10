@@ -1,25 +1,36 @@
 from flask import Flask, render_template, request, flash
-import flask
 import numpy as np
 import os
 from tensorflow.keras.utils import load_img
 from tensorflow.keras.utils import img_to_array
 from keras.models import load_model
+uploadedimges='static/userUpload'
+
 
 #loading models
 #heart_model=load_model("")
 #daibeties_model=load_model("models\diabetes_model.pkl")
 #lungs_model=load_model("models\Lungs_disease.h5")
 #skin_model=load_model("models\Skin_disease4.h5")
-#brain_model=load_model("models\brain_disease.h5")
+brain_model=load_model("majorproject/brain_disease.h5")
 print("models loaded")
-def lungs_models_prediction(images):
-    test_image=load_img(images, target_size=(150, 150))
+def brain_models_prediction(brain_Images):
+    test_image=load_img(brain_Images, target_size=(224, 224))
     test_image = img_to_array(test_image)/255 # convert image to np array and normalize
     test_image = np.expand_dims(test_image, axis = 0) # change dimention 3D to 4D
    
-    result = model.predict(test_image).round(3) # predict diseased palnt or not
+    result = brain_model.predict(test_image).round(3) # predict diseased palnt or not
     print('@@ Raw result = ', result)
+    pred=np.argmax(result)
+    if pred == 0:
+        return 'Glioma', 'diganosis.html' # if index 0 burned leaf
+    elif pred==1:
+        return 'Menigioma', 'index.html'
+    elif pred==2:
+        return "NO Tumor", 'index.html'
+    
+# def lungs_models_prediction(lungs_Images):
+#     pass
 app=Flask(__name__)
 app.secret_key="secret key"
 @app.route("/", methods=['GET', 'POST'])
@@ -36,19 +47,20 @@ def credits():
     return render_template("credit.html")
 @app.route("/about", methods=["GET"])
 def help():
-    return render_template("help.html")
-@app.route("/predict/lungs", mehtods=['POST'])
-def predict_lungs():
-    file=request.files['image']
-    filename=file.filename
-    if filename=="":
-        flash("Please Insert a Images", "error")
-        return render_template('index.html')
-    file_path = os.path.join('static/user uploaded', filename)
-    file.save(file_path)
-    pred, output_page=lungs_models_prediction(lungsImages=file_path)
-    return render_template(output_page, pred_output=pred, user_image=file_path)
+    return render_template("upload.html")
+@app.route("/predict-brain", methods=['POST'])
+def predict_Brain():
+    if request.method=='POST':
+        file=request.files['image']
+        filename=file.filename
+        if filename=="":
+            flash("Please Insert a Images", "error")
+            return render_template('index.html')
+        file_path = os.path.join(uploadedimges, filename)
+        file.save(file_path)
+        pred, output_page=brain_models_prediction(brain_Images=file_path)
+        return render_template(output_page, pred_output=pred, user_image=file_path)
 
 
 if __name__=="__main__":
-    app.run(threaded=True)
+    app.run(debug=True)
