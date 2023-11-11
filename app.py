@@ -95,11 +95,19 @@ def heart():
     return render_template("heartform.html")
 #-----------------------------------------------------------------------------------------------------------
 @app.route("/predict/<disease>", methods=['POST'])
-def predict_Brain(disease):
+def predict(disease):
     if request.method=='POST':
         if disease=='lungs':
             print("lungs function is working")
-            pass
+            file=request.files['image']
+            filename=file.filename
+            if filename=="":
+                flash(flash_msz, "error")
+                return render_template('index.html')
+            file_path = os.path.join(uploadedimges, filename)
+            file.save(file_path)
+            pred, output_page=lungs_models_prediction(lungs_Images=file_path)
+            return render_template(output_page, pred_output=pred, user_image=file_path)
         elif disease == 'brain':
             file=request.files['image']
             filename=file.filename
@@ -111,7 +119,15 @@ def predict_Brain(disease):
             pred, output_page=brain_models_prediction(brain_Images=file_path)
             return render_template(output_page, pred_output=pred, user_image=file_path)
         elif disease=='skin':
-            pass
+            file=request.files['image']
+            filename=file.filename
+            if filename=="":
+                flash(flash_msz, "error")
+                return render_template('index.html')
+            file_path = os.path.join(uploadedimges, filename)
+            file.save(file_path)
+            pred, output_page=skin_models_prediction(skin_Images=file_path)
+            return render_template(output_page, pred_output=pred, user_image=file_path)
 #---------------------------------------------------------------------------------------------------------
 @app.route("/predict-lungs", methods=['POST'])
 def predict_lungs():
