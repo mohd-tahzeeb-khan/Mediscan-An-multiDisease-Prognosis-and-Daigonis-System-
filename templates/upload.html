@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Medical Image Predictor</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='upload.css')}}">
+    <link rel="stylesheet" href="upload.css">
 </head>
 
 <body>
@@ -15,9 +15,9 @@
         <p>Upload an image to predict diseases using our machine learning model.</p>
     </header>
     <main>
-        <form id="uploadForm" enctype="multipart/form-data" action="/predict-brain" method="post">
-            <input type="file" name="image" accept="image/*" onchange="previewImage(event)" />
-            <input type="submit" value="Upload Image">
+        <form id="uploadForm" enctype="multipart/form-data">
+            <input type="file" id="upload-input" accept="image/*" onchange="previewImage(event)" />
+            <button type="button" class="btn" onclick="uploadImage()">Predict</button>
         </form>
         <div id="result"></div>
         <img id="preview-image" alt="Preview" src="#" style="width: 300px; height: auto;"/>
@@ -25,7 +25,7 @@
     <footer>
         <p>Powered by Medical Website</p>
     </footer>
-    <script src="{{url_for('static', filename='upload.js')}}">
+    <script src="upload.js">
     </script>
 </body>
 
