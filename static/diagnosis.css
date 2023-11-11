@@ -1,8 +1,11 @@
-
+body{
+  background-color: #e4e4e4;
+}
   .container-diagnosis{
     display: flex;
     justify-content: space-around;
     flex-wrap: wrap;
+    
   }
 
   .card {
@@ -16,7 +19,7 @@
   }
 
   .card:hover {
-    transform: scale(1.05);
+    transform: scale(1.04);
   }
 
   .card img {
@@ -36,10 +39,11 @@
   }
 
   .card-description {
-    width: 17rem;
+    width: 20rem;
     font-size: 14px;
-    color: #555;
+    color: #14213D;
     margin-bottom: 12px;
+    text-align: justify;
   }
 
   .predict-button {
@@ -50,6 +54,7 @@
     border-radius: 4px;
     cursor: pointer;
     font-size: 14px;
+    
   }
   .content-container-diagnosis{
     margin-top:6rem;
@@ -59,3 +64,17 @@
     justify-content: space-around;
     align-items: center;
   }
+
+  @media screen and (max-width: 500px) {
+  
+    .content-container-diagnosis{
+      margin-top:6rem;
+      margin-right: 1rem !important;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      align-items: center;
+    }
+
+  }
+  
