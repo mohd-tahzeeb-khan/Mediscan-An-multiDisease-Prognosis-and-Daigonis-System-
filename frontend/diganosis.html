@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="diagnosis.css">
+    <title>Dignosis page</title>
+
+
+</head>
+
+<body>
+    <header>
+        <div class="logo"><img src="assest/logo1.jpg" alt="logo image" style="width: 68px; height: auto;"></div>
+        <h1>Medical Website</h1>
+        <div class="burger-icon" onclick="toggleMenu()">
+            <i class="fa fa-bars"></i>
+        </div>
+
+    </header>
+
+
+    <main>
+
+        <sidebar class="active">
+            <section class="head">
+                <h2>MediScan App</h2>
+            </section>
+
+            <ul>
+                <li><a href="index.html"><i id="icon" class="fa fa-home"></i>Home</a></li>
+                <li><a href="diganosis.html"><i id="icon" class="fa fa-stethoscope"></i>Diagnosis</a></li>
+                <li><a href=""><i id="icon" class="fa fa-star"></i>Credit</a></li>
+                <li><a href=""><i id="icon" class="fa fa-info-circle"></i>About</a></li>
+            </ul>
+        </sidebar>
+
+
+        <section class="content-container-diagnosis">
+            <h1>Diagnosis of Disease</h1>
+            <div class="container-diagnosis">
+
+                <!-- Card 1 -->
+                <div class="card">
+                    <img src="assest/LUNG-DISEASE.jpg" alt="Card Image">
+                    <div class="card-content">
+                        <div class="card-title">Lungs Disease</div>
+                        <div class="card-description">Our advanced lung detection model employs cutting-edge technology
+                            to analyze and identify potential issues within the respiratory system. From detecting
+                            infections to assessing lung capacity, this tool provides comprehensive insights for better
+                            respiratory health.</div>
+                        <button class="predict-button" onclick="redirectToPredictionPage()">Predict</button>
+                    </div>
+                </div>
+                <!-- Card 2 -->
+                <div class="card">
+                    <img src="assest/skin disease.jpg" alt="Card Image">
+                    <div class="card-content">
+                        <div class="card-title">Skin Disease</div>
+                        <div class="card-description">Experience the future of dermatological diagnosis with our skin
+                            detection model. Whether you're concerned about acne, rashes, or other skin conditions, our
+                            model utilizes state-of-the-art algorithms to analyze images and provide accurate
+                            assessments for a healthier complexion.</div>
+                        <button class="predict-button" onclick="redirectToPredictionPage()">Predict</button>
+                    </div>
+                </div>
+                <!-- Card 3 -->
+                <div class="card">
+                    <img src="assest/brain disease.jpg" alt="Card Image">
+                    <div class="card-content">
+                        <div class="card-title">Brain Disease</div>
+                        <div class="card-description">Unlock the mysteries of brain health with our brain detection
+                            model. From identifying anomalies in brain scans to assessing cognitive function, our tool
+                            offers a thorough analysis for a better understanding of neurological well-being.</div>
+                        <button class="predict-button" onclick="redirectToPredictionPage()">Predict</button>
+                    </div>
+                </div>
+                <!-- Card 4 -->
+                <div class="card">
+                    <img src="assest/diabetes disease.jpg" alt="Card Image">
+                    <div class="card-content">
+                        <div class="card-title">Diabetes Disease</div>
+                        <div class="card-description">Take control of your health with our diabetes detection model. By
+                            analyzing key indicators, such as blood sugar levels and other relevant factors, our model
+                            provides valuable insights to help manage and monitor diabetes effectively.</div>
+                        <button class="predict-button" onclick="redirectToDiabetesPage()">Predict</button>
+                    </div>
+                </div>
+                <!-- Card 5 -->
+                <div class="card">
+                    <img src="assest/heart disease.jpg" alt="Card Image">
+                    <div class="card-content">
+                        <div class="card-title">Heart Disease</div>
+                        <div class="card-description">Ensure a strong and healthy heart with our cardiac detection
+                            model. From assessing heart rate variability to detecting potential cardiac issues, this
+                            tool is designed to provide essential information for cardiovascular well-being.</div>
+                        <button class="predict-button" onclick="redirectToHeartPage()">Predict</button>
+                    </div>
+                </div>
+                <!-- Card 6 -->
+                <div class="card">
+                    <img src="assest/full body disease.jpg" alt="Card Image">
+                    <div class="card-content">
+                        <div class="card-title">Full Body Diagnosis</div>
+                        <div class="card-description">Experience a comprehensive health assessment with our full-body
+                            diagnosis detection model. By integrating data from various systems, this tool offers a
+                            holistic view of your health, allowing for early detection and prevention of potential
+                            issues. Your well-being, all in one place.</div>
+                        <button class="predict-button" onclick="redirectToPredictionPage()">Predict</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+    </main>
+    <script>
+        function redirectToPredictionPage() {
+            window.location.href = 'upload.html';
+        }
+        function redirectToDiabetesPage() {
+            window.location.href = 'diabetesform.html';
+        }
+        function redirectToHeartPage() {
+            window.location.href = 'heartform.html';
+        }
+    </script>
+    <script src="script.js"></script>
+</body>
+
+</html>
