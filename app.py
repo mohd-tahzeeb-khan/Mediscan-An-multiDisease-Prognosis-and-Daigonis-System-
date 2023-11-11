@@ -68,31 +68,50 @@ app.secret_key="secret key"
 @app.route("/", methods=['GET', 'POST'])
 def home():
     return render_template("index.html")
-@app.route("/diagnosis", methods=['GET'])
+@app.route("/diganosis", methods=['GET'])
 def diagnosis():
     return render_template("diganosis.html")
-@app.route("/diabetes", methods=['GET','POST'])
-def diabetes():
-    return render_template("diabetesform.html")
 @app.route("/credits", methods=["GET"])
 def credits():
     return render_template("credit.html")
-@app.route("/about", methods=["GET"])
+@app.route("/help", methods=["GET"])
 def help():
-    return render_template("upload.html")
+    return render_template("help.html")
+@app.route("/upload/<disease>", methods=['GET','POST'])
+def upload(disease):
+    if request.method=="POST":
+        if disease=="lung":
+            return render_template(upload,disease=disease)
+        elif disease=="brain":
+            return render_template(upload, disease=disease)
+        elif disease=="skin":
+            return render_template(upload,disease=disease)
+    return render_template("upload.html", disease=disease)
+@app.route("/diabetes", methods=['GET','POST'])
+def diabetes():
+    return render_template("diabetesform.html")
+@app.route("/heart", methods=['GET','POST'])
+def heart():
+    return render_template("heartform.html")
 #-----------------------------------------------------------------------------------------------------------
-@app.route("/predict-brain", methods=['POST'])
-def predict_Brain():
+@app.route("/predict/<disease>", methods=['POST'])
+def predict_Brain(disease):
     if request.method=='POST':
-        file=request.files['image']
-        filename=file.filename
-        if filename=="":
-            flash(flash_msz, "error")
-            return render_template('index.html')
-        file_path = os.path.join(uploadedimges, filename)
-        file.save(file_path)
-        pred, output_page=brain_models_prediction(brain_Images=file_path)
-        return render_template(output_page, pred_output=pred, user_image=file_path)
+        if disease=='lungs':
+            print("lungs function is working")
+            pass
+        elif disease == 'brain':
+            file=request.files['image']
+            filename=file.filename
+            if filename=="":
+                flash(flash_msz, "error")
+                return render_template('index.html')
+            file_path = os.path.join(uploadedimges, filename)
+            file.save(file_path)
+            pred, output_page=brain_models_prediction(brain_Images=file_path)
+            return render_template(output_page, pred_output=pred, user_image=file_path)
+        elif disease=='skin':
+            pass
 #---------------------------------------------------------------------------------------------------------
 @app.route("/predict-lungs", methods=['POST'])
 def predict_lungs():
@@ -125,5 +144,6 @@ if __name__=="__main__":
     index='index.html'
     credit='credit.html'
     help='help.html'
+    upload='upload.html'
     flash_msz="Please Enter the Images. Image is not Inserted!!"
     app.run(debug=True)
