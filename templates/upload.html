@@ -11,13 +11,13 @@
 <body>
     <button class="back-button" onclick="goBack()">Back</button>
     <header>
-        <h1>Lungs Disease Predictor</h1>
+        <h1>{{disease}} Disease Predictor</h1>
         <p>Upload an image to predict diseases using our machine learning model.</p>
     </header>
     <main>
-        <form id="uploadForm" enctype="multipart/form-data">
-            <input type="file" id="upload-input" accept="image/*" onchange="previewImage(event)" />
-            <button type="button" class="btn" onclick="uploadImage()">Predict</button>
+        <form id="uploadForm" enctype="multipart/form-data" action="/predict/{{disease}}" method="post">
+            <input type="file" name="image" accept="image/*" onchange="previewImage(event)" />
+            <button type="submit" class="btn">Predict</button>
         </form>
         <div id="result"></div>
         <img id="preview-image" alt="Preview" src="#" style="width: 300px; height: auto;"/>
