@@ -6,44 +6,44 @@
             <h1>Diagnosis of Disease</h1>
             <div class="container-diagnosis">
 
-                <!-- Card 1 -->
+                <!--Lungs Disease card-1-->
                 <div class="card">
-                    <img src="assest/LUNG-DISEASE.jpg" alt="Card Image">
+                    <img src="{{url_for('static', filename='assest/LUNG-DISEASE.jpg')}}" alt="Card Image">
                     <div class="card-content">
                         <div class="card-title">Lungs Disease</div>
                         <div class="card-description">Our advanced lung detection model employs cutting-edge technology
                             to analyze and identify potential issues within the respiratory system. From detecting
                             infections to assessing lung capacity, this tool provides comprehensive insights for better
                             respiratory health.</div>
-                        <button class="predict-button" onclick="redirectToPredictionPage()">Predict</button>
+                        <button class="predict-button"><a href="/upload/lungs">Predict</a></button>
                     </div>
                 </div>
-                <!-- Card 2 -->
+                <!-- Skin Disease Card 2 -->
                 <div class="card">
-                    <img src="assest/skin disease.jpg" alt="Card Image">
+                    <img src="{{url_for('static', filename='assest/skin disease.jpg')}}" alt="Card Image">
                     <div class="card-content">
                         <div class="card-title">Skin Disease</div>
                         <div class="card-description">Experience the future of dermatological diagnosis with our skin
                             detection model. Whether you're concerned about acne, rashes, or other skin conditions, our
                             model utilizes state-of-the-art algorithms to analyze images and provide accurate
                             assessments for a healthier complexion.</div>
-                        <button class="predict-button" onclick="redirectToPredictionPage()">Predict</button>
+                        <button class="predict-button"><a href="/upload/skin">Predict</a></button>
                     </div>
                 </div>
-                <!-- Card 3 -->
+                <!-- Brain Disease Card 3 -->
                 <div class="card">
-                    <img src="assest/brain disease.jpg" alt="Card Image">
+                    <img src="{{url_for('static', filename='assest/brain disease.jpg')}}" alt="Card Image">
                     <div class="card-content">
                         <div class="card-title">Brain Disease</div>
                         <div class="card-description">Unlock the mysteries of brain health with our brain detection
                             model. From identifying anomalies in brain scans to assessing cognitive function, our tool
                             offers a thorough analysis for a better understanding of neurological well-being.</div>
-                        <button class="predict-button" onclick="redirectToPredictionPage()">Predict</button>
+                        <button class="predict-button"><a href="/upload/brain">Predict</a></button>
                     </div>
                 </div>
                 <!-- Card 4 -->
                 <div class="card">
-                    <img src="assest/diabetes disease.jpg" alt="Card Image">
+                    <img src="{{url_for('static', filename='assest/diabetes disease.jpg')}}" alt="Card Image">
                     <div class="card-content">
                         <div class="card-title">Diabetes Disease</div>
                         <div class="card-description">Take control of your health with our diabetes detection model. By
@@ -54,7 +54,7 @@
                 </div>
                 <!-- Card 5 -->
                 <div class="card">
-                    <img src="assest/heart disease.jpg" alt="Card Image">
+                    <img src="{{url_for('static', filename='assest/heart disease.jpg')}}" alt="Card Image">
                     <div class="card-content">
                         <div class="card-title">Heart Disease</div>
                         <div class="card-description">Ensure a strong and healthy heart with our cardiac detection
@@ -65,7 +65,7 @@
                 </div>
                 <!-- Card 6 -->
                 <div class="card">
-                    <img src="assest/full body disease.jpg" alt="Card Image">
+                    <img src="{{url_for('static', filename='assest/full body disease.jpg')}}" alt="Card Image">
                     <div class="card-content">
                         <div class="card-title">Full Body Diagnosis</div>
                         <div class="card-description">Experience a comprehensive health assessment with our full-body
@@ -82,14 +82,12 @@
     </main>
     <script>
         function redirectToPredictionPage() {
-            window.location.href = 'upload.html';
+            window.location.href = '/upload';
         }
-        function redirectToDiabetesPage() {
-            window.location.href = 'diabetesform.html';
-        }
+        
         function redirectToHeartPage() {
-            window.location.href = 'heartform.html';
+            window.location.href = '/heart';
         }
     </script>
-    <script src="script.js"></script>
+    <script src="{{url_for('static', filename='scipt.js')}}"></script>
     {% endblock %}
