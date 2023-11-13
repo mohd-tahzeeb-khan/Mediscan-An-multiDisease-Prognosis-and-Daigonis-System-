@@ -5,13 +5,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Health Information Form</title>
-    <link rel="stylesheet" href="diabetesform.css">
+    <link rel="stylesheet" href="{{url_for('static', filename='diabetesform.css')}}">
 </head>
 
 <body>
     <div class="container">
         <button class="back-button" onclick="goBack()">Back</button>
-        <form class="health-form" onsubmit="calculateBMI(); return false;">
+        <form class="health-form" action="/diabetes" method="post" onsubmit="calculateBMI();">
             <h2 class="heading">Diabetes Information Form</h2>
             <div class="input-row">
 
@@ -82,6 +82,10 @@
                         <label for="bloodGlucose">Blood Glucose Level:</label>
                         <input type="number" id="bloodGlucose" name="bloodGlucose" required>
                     </div>
+                    <div>
+                        <label for="BMI">BMI:</label>
+                        <input type="number" id="BMI" name="BMI" required>
+                    </div>
                 </div>
 
             </div>
@@ -111,8 +115,9 @@
         }
 
         function displayBMIResult(bmi) {
-            var bmiResultElement = document.getElementById('bmiResult');
-            bmiResultElement.textContent = 'Your BMI is: ' + bmi.toFixed(2);
+            var bmiResultElement = document.getElementById('BMI');
+            // bmiResultElement.textContent = 'Your BMI is: ' + bmi.toFixed(2);
+            bmiResultElement.value=bmi.toFixed(2);
         }
     </script>
 </body>
