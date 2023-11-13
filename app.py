@@ -10,7 +10,7 @@ uploadedimges='static/userUpload'
 
 
 #loading models
-#heart_model=pickle.load(open("models\Heart_Model.pkl", "rb"))
+heart_model=pickle.load(open("models\Heart_Model_updated.pkl", "rb"))
 diabetes_model=pickle.load(open("models\diabetes_model.pkl", "rb"))
 lungs_model=load_model("models\Lungs_disease.h5")
 skin_model=load_model("models\Skin_disease4.h5")
@@ -126,6 +126,7 @@ def heart():
         return render_template("heartform.html")
     elif request.method=='POST':
         data=request.form
+        print(data)
         to_predict=np.array(data).reshape(918,12)
         result=diabetes_model.predict(to_predict)
         print(result)
