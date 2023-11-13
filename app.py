@@ -4,12 +4,14 @@ import os
 from tensorflow.keras.utils import load_img
 from tensorflow.keras.utils import img_to_array
 from keras.models import load_model
+import pickle
+import sklearn
 uploadedimges='static/userUpload'
 
 
 #loading models
-#heart_model=load_model("")
-#daibeties_model=load_model("models\diabetes_model.pkl")
+#heart_model=pickle.load(open("models\Heart_Model.pkl", "rb"))
+diabetes_model=pickle.load(open("models\diabetes_model.pkl", "rb"))
 lungs_model=load_model("models\Lungs_disease.h5")
 skin_model=load_model("models\Skin_disease4.h5")
 brain_model=load_model("models/brain_disease.h5")
@@ -34,7 +36,7 @@ def lungs_models_prediction(lungs_Images):
     test_image = img_to_array(test_image)/255 # convert image to np array and normalize
     test_image = np.expand_dims(test_image, axis = 0) # change dimention 3D to 4D
    
-    result = brain_model.predict(test_image).round(3) # predict diseased palnt or not
+    result = lungs_model.predict(test_image).round(3) # predict diseased palnt or not
     print('@@ Raw result = ', result)
     pred=np.argmax(result)
     if pred == 0:
@@ -51,7 +53,7 @@ def skin_models_prediction(skin_Images):
     test_image = img_to_array(test_image)/255 # convert image to np array and normalize
     test_image = np.expand_dims(test_image, axis = 0) # change dimention 3D to 4D
    
-    result = brain_model.predict(test_image).round(3) # predict diseased palnt or not
+    result = skin_model.predict(test_image).round(3) # predict diseased palnt or not
     print('@@ Raw result = ', result)
     pred=np.argmax(result)
     if pred == 0:
@@ -89,10 +91,45 @@ def upload(disease):
     return render_template("upload.html", disease=disease)
 @app.route("/diabetes", methods=['GET','POST'])
 def diabetes():
-    return render_template("diabetesform.html")
+    if request.method=='GET':
+        return render_template("diabetesform.html")
+    elif request.method=='POST':
+        age = request.form['age']
+        hypertension= request.form['hypertension']
+        hba1c = float(request.form['hba1c'])
+        gendervalue = request.form['gender']
+        if(gendervalue=="Female"):
+            gender=0
+        else:
+            gender=1
+        smokingHistory = request.form['smokingHistory']
+        if(smokingHistory=="never"):
+            smoke=4
+        elif(smokingHistory=="current"):
+            smoke=1
+        elif(smokingHistory=="formal"):
+            smoke=3
+        else:
+            smoke=0
+        heartDisease = request.form['heartDisease']
+        weight = int(request.form['weight'])
+        bloodGlucose=int(request.form['bloodGlucose'])
+        bmi=float(request.form['BMI'])
+        to_predict = np.array([[gender, age, hypertension, heartDisease, smoke, bmi, hba1c, bloodGlucose]])
+        result=diabetes_model.predict(to_predict)
+        print(result)
+        return render_template("diabetesform.html")
+
 @app.route("/heart", methods=['GET','POST'])
 def heart():
-    return render_template("heartform.html")
+    if request.method=='GET':
+        return render_template("heartform.html")
+    elif request.method=='POST':
+        data=request.form
+        to_predict=np.array(data).reshape(918,12)
+        result=diabetes_model.predict(to_predict)
+        print(result)
+        return render_template("heartform.html")
 #-----------------------------------------------------------------------------------------------------------
 @app.route("/predict/<disease>", methods=['POST'])
 def predict(disease):
@@ -129,31 +166,7 @@ def predict(disease):
             pred, output_page=skin_models_prediction(skin_Images=file_path)
             return render_template(output_page, pred_output=pred, user_image=file_path)
 #---------------------------------------------------------------------------------------------------------
-@app.route("/predict-lungs", methods=['POST'])
-def predict_lungs():
-    if request.method=='POST':
-        file=request.files['image']
-        filename=file.filename
-        if filename=="":
-            flash(flash_msz, "error")
-            return render_template('index.html')
-        file_path = os.path.join(uploadedimges, filename)
-        file.save(file_path)
-        pred, output_page=lungs_models_prediction(lungs_Images=file_path)
-        return render_template(output_page, pred_output=pred, user_image=file_path)
-#-------------------------------------------------------------------------------------------------------
-@app.route("/predict-skin", methods=['POST'])
-def predict_skin():
-    if request.method=='POST':
-        file=request.files['image']
-        filename=file.filename
-        if filename=="":
-            flash(flash_msz, "error")
-            return render_template('index.html')
-        file_path = os.path.join(uploadedimges, filename)
-        file.save(file_path)
-        pred, output_page=skin_models_prediction(skin_Images=file_path)
-        return render_template(output_page, pred_output=pred, user_image=file_path)
+
 #-----------------------------------------------------------------------------------------------------------
 
 if __name__=="__main__":
