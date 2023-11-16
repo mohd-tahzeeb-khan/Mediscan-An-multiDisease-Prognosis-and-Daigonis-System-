@@ -11,7 +11,7 @@ uploadedimges='static/userUpload'
 
 #loading models
 heart_model=pickle.load(open("models\Heart_Model_updated.pkl", "rb"))
-diabetes_model=pickle.load(open("models\diabetes_model.pkl", "rb"))
+diabetes_model=pickle.load(open("models\Diabetes_Model_updated.pkl", "rb"))
 lungs_model=load_model("models\Lungs_disease.h5")
 skin_model=load_model("models\Skin_disease4.h5")
 brain_model=load_model("models/brain_disease.h5")
@@ -94,6 +94,7 @@ def diabetes():
     if request.method=='GET':
         return render_template("diabetesform.html")
     elif request.method=='POST':
+        data=request.form
         age = request.form['age']
         hypertension= request.form['hypertension']
         hba1c = float(request.form['hba1c'])
@@ -115,8 +116,8 @@ def diabetes():
         weight = int(request.form['weight'])
         bloodGlucose=int(request.form['bloodGlucose'])
         bmi=float(request.form['BMI'])
-        to_predict = np.array([[gender, age, hypertension, heartDisease, smoke, bmi, hba1c, bloodGlucose]])
-        result=diabetes_model.predict(to_predict)
+        to_predict = np.array([[gender], [age], [hypertension], [heartDisease], [smoke], [bmi], [hba1c], [bloodGlucose]])
+        result=diabetes_model.predict(data)
         print(result)
         return render_template("diabetesform.html")
 
