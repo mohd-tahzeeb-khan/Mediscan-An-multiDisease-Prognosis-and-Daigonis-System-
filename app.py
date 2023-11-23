@@ -223,36 +223,28 @@ def heart():
     if request.method=='GET':
         return render_template("heartform.html")
     elif request.method=='POST':
-        # data={'age':int(request.form['age']),
-        # 'sex' :1,
-        # 'chest_pain_type' :1,
-        # 'resting_bp' : int(request.form['BP']),
-        # 'cholesterol' : int(request.form['Cholesterol']),
-        # 'fasting_bp':int(request.form['bloodsugar']),
-        # 'resting_ecg':1,
-        # 'max_hr' :int(request.form['MaxHR']),
-        # 'exercise_angina': 0,
-        # 'old_peak':float(request.form['OldPeak']),
-        # 'st_slope':2,
-        # }
-        Age = 40
-        Sex = 1
-        chestPainType = 1
-        RestingBP = 140
-        cholesterol = 289
-        FastingBS = 0
-        RestingECG = 0
-        MaxHR = 172
-        ExerciseAngina = 0
-        Oldpeak = 0.0
-        ST_Slope = 1
-
+        Age=int(request.form['age']),
+        sex =request.form['gender']
+        if sex=='male':
+            sexno=1
+        elif sex=='female':
+            sexno=0
+        else:
+            sexno=1
+        chestPainType =int(request.form['chestpain'])
+        RestingBP = int(request.form['BP']),
+        cholesterol =int(request.form['Cholesterol']),
+        FastingBS=int(request.form['bloodsugar']),
+        RestingECG=int(request.form['ECG'])
+        MaxHR =int(request.form['MaxHR']),
+        ExerciseAngina=int(request.form['ExerciseAngina'])
+        Oldpeak=float(request.form['OldPeak']),
+        ST_Slope=int(request.form['stslope'])
+    
         # Include Sex in the input data
-        input_data = [[Age, Sex, chestPainType, RestingBP, cholesterol, FastingBS, RestingECG, MaxHR, ExerciseAngina, Oldpeak, ST_Slope]]
-
+        input_data = [[Age, sexno, chestPainType, RestingBP, cholesterol, FastingBS, RestingECG, MaxHR, ExerciseAngina, Oldpeak, ST_Slope]]
         # Make predictions
         prediction = heart_model.predict(input_data)
-
         # Display the result
         if prediction == 0:
             print("No heart disease")
