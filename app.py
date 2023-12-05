@@ -67,7 +67,7 @@ def lungs_models_prediction(lungs_Images):
     test_image = img_to_array(test_image)/255 # convert image to np array and normalize
     test_image = np.expand_dims(test_image, axis = 0) # change dimention 3D to 4D
    
-    result = lungs_model.predict(test_image).round(3) # predict diseased palnt or not
+    result = lungs_model.predict(test_image).round(3) 
     print('@@ Raw result = ', result)
     pred=np.argmax(result)
     if pred == 0:
@@ -79,7 +79,7 @@ def lungs_models_prediction(lungs_Images):
             "treatment":"The goal of acne treatment is to reduce oil production, prevent clogged pores, and manage inflammation. Treatment options include:<br><strong>Topical Treatments:</strong><br><li><strong>Benzoyl peroxide:</strong> Kills bacteria and removes excess oil. Retinoids: Unclog pores and promote the exfoliation of dead skin cells. Topical antibiotics: Reduce bacteria on the skin.</li><li><strong>Oral medications:</strong> <li><strong>Antibiotics:</strong> Oral antibiotics may be prescribed for moderate to severe acne to reduce inflammation and bacteria. certain oral contraceptives can help regulate hormones and reduce acne</li>. <li><strong>Isotretinoin (Accutane):</strong> A powerful oral medication for severe acne. It is usually reserved for cases that haven't responded to other treatments due to potential side effects.</li></li><li><strong>Light and laser therapy:</strong> Certain light-based therapies can target bacteria and reduce inflammation.</li><li><strong>Chemical peels:</strong> Exfoliate the skin, helping to unclog pores and improve the appearance of acne.</li>"
         }
         print("bacterial pneumonia")
-        return data # if index 0 burned leaf
+        return data
     elif pred==1:
         print("normal")
         data={
