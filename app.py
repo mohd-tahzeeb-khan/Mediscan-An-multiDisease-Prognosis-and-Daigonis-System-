@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, flash
+from flask import Flask, render_template, request, flash, url_for
 import numpy as np
 import os
 import pandas as pd
@@ -9,8 +9,10 @@ from sklearn.ensemble import RandomForestClassifier
 import joblib
 import pickle
 import sklearn
-uploadedimges='static/userUpload'
+uploadedimges="static/userUpload"
 result="result.html" 
+healthy_heart="static/assest/Healthy_heart.jpg"
+unhealtht_heart="static/assest/Unhealthy_heart.jpg"
 #--------------------------------------------------------------------
 
 #--------------------------------loading models-----------------------------
@@ -97,7 +99,7 @@ def lungs_models_prediction(lungs_Images):
             "symptoms_list":"<li><strong>Comedones:</strong> These are non-inflammatory lesions and can be open (blackheads) or closed (whiteheads).</li><li><strong>Papules:</strong> Small, red, raised bumps that may be tender to the touch.</li><li><strong>Pustules:</strong> Pimples filled with pus. They are red at the base and have a white or yellow center.</li><li><strong>Nodules:</strong> Large, painful, solid lesions located deep within the skin.</li><li><strong>Cysts:</strong> Deep, painful, pus-filled lumps that can cause scarring.</li>",
             "treatment":"The goal of acne treatment is to reduce oil production, prevent clogged pores, and manage inflammation. Treatment options include:<br><strong>Topical Treatments:</strong><br><li><strong>Benzoyl peroxide:</strong> Kills bacteria and removes excess oil. Retinoids: Unclog pores and promote the exfoliation of dead skin cells. Topical antibiotics: Reduce bacteria on the skin.</li><li><strong>Oral medications:</strong> <li><strong>Antibiotics:</strong> Oral antibiotics may be prescribed for moderate to severe acne to reduce inflammation and bacteria. certain oral contraceptives can help regulate hormones and reduce acne</li>. <li><strong>Isotretinoin (Accutane):</strong> A powerful oral medication for severe acne. It is usually reserved for cases that haven't responded to other treatments due to potential side effects.</li></li><li><strong>Light and laser therapy:</strong> Certain light-based therapies can target bacteria and reduce inflammation.</li><li><strong>Chemical peels:</strong> Exfoliate the skin, helping to unclog pores and improve the appearance of acne.</li>"
         }
-        return "Tuberculosis"
+        return data
     elif pred==3:
         print("viral pneumonia")
         data={
@@ -213,7 +215,6 @@ def diabetes():
         bloodGlucose=int(request.form['bloodGlucose'])
         bmi=float(request.form['BMI'])
         to_predict = np.array([gender, age, hypertension, heartDisease, smoke, bmi, hba1c, bloodGlucose])
-        #result=diabetes_model.predict(to_predict)
         result = diabetes_model.predict(X=to_predict)
         print(result)
         return render_template("diabetesform.html")
@@ -248,9 +249,24 @@ def heart():
         # Display the result
         if prediction == 0:
             print("No heart disease")
+            data={
+            "disease":"Normal Report",
+            "abstraction":"A healthy heart is the cornerstone of overall well-being, playing a pivotal role in sustaining life and vitality. The term 'healthy heart' encompasses a state where the heart functions optimally, efficiently pumping blood throughout the body and supplying vital nutrients and oxygen to every cell. Achieving and maintaining a healthy heart involves a multifaceted approach, integrating lifestyle choices, dietary habits, and regular physical activity.",
+            "symptoms_define":"Here some ways to tell if your heart is healthy — now and in the future.",
+            "symptoms_list":"<li>Controlled Blood Pressure. </li><li>Good Sleep(Around 8 to 9 hours per 24 hours).</li><li>Good Oral Health.</li><li>High Energy Levels.<li>",
+            "treatment":""
+            }
+            return render_template(result, data=data)
         else:
             print("Heart disease")
-        return render_template("heartform.html")
+            data={
+            "disease":"Heart Disease",
+            "abstraction":"The diagnosis of heart disease in most cases depends on a complex combination of clinical and pathological data. Because of this complexity, there exists a significant amount of interest among clinical professionals and researchers regarding the efficient and accurate prediction of heart disease. In this paper, we develop a heart disease predict system that can assist medical professionals in predicting heart disease status based on the clinical data of patients. Our approaches include three steps. Firstly, we select 13 important clinical features, i.e., age, sex, chest pain type, trestbps, cholesterol, fasting blood sugar, resting ecg, max heart rate, exercise induced angina, old peak, slope, number of vessels colored, and thal. Secondly, we develop an artificial neural network algorithm for classifying heart disease based on these clinical features. The accuracy of prediction is near 80%. Finally, we develop a user-friendly heart disease predict system (HDPS). The HDPS system will be consisted of multiple features, including input clinical data section, ROC curve display section, and prediction performance display section (execute time, accuracy, sensitivity, specificity, and predict result). Our approaches are effective in predicting the heart disease of a patient. The HDPS system developed in this study is a novel approach that can be used in the classification of heart disease.",
+            "symptoms_define":"Coronary artery disease is a common heart condition that affects the major blood vessels that supply the heart muscle. Cholesterol deposits (plaques) in the heart arteries are usually the cause of coronary artery disease. The buildup of these plaques is called atherosclerosis (ath-ur-o-skluh-ROE-sis). Atherosclerosis reduces blood flow to the heart and other parts of the body. It can lead to a heart attack, chest pain (angina) or stroke.<br> Coronary artery disease symptoms may be different for men and women. For instance, men are more likely to have chest pain. Women are more likely to have other symptoms along with chest discomfort, such as shortness of breath, nausea and extreme fatigue.",
+            "symptoms_list":"<li>Chest pain, chest tightness, chest pressure and chest discomfort (angina)</li><li>Shortness of breath</li><li>Pain in the neck, jaw, throat, upper belly area or back</li><li>Pain, numbness, weakness or coldness in the legs or arms if the blood vessels in those body areas are narrowed</li>",
+            "treatment":"The same lifestyle changes used to manage heart disease may also help prevent it. Try these heart-healthy tips:<br><li>Don't smoke.</li><li>Eat a diet that's low in salt and saturated fat.</li><li>Exercise at least 30 minutes a day on most days of the week.</li><li>Maintain a healthy weight.</li><li>Reduce and manage stress.</li><li>Control high blood pressure, high cholesterol and diabetes.</li><li>Get good sleep. Adults should aim for 7 to 9 hours daily.</li>"
+            }
+            return render_template(result, data=data)
 #-----------------------------------------------------------------------------------------------------------
 @app.route("/predict/<disease>", methods=['POST'])
 def predict(disease):
@@ -262,24 +278,25 @@ def predict(disease):
             if filename=="":
                 flash(flash_msz, "error")
                 return render_template('index.html')
-            file_path = os.path.join(uploadedimges, filename)
-            file.save(file_path)
-            pred=lungs_models_prediction(lungs_Images=file_path)
-            data={
-            'disease':pred
-        }
-            return render_template(result, data=data, user_image=file_path)
+            file_path = 'userUpload/' + filename
+            file_path_full = 'static/' + file_path
+            file.save(file_path_full)
+            data=lungs_models_prediction(lungs_Images=file_path_full)
+            file_url = url_for('static', filename=file_path)
+            return render_template(result, data=data, user_image=file_url)
         elif disease == 'brain':
             file=request.files['image']
             filename=file.filename
+            print(filename)
             if filename=="":
                 flash(flash_msz, "error")
                 return render_template('index.html')
-            file_path = os.path.join(uploadedimges, filename)
-            file.save(file_path)
-            data=brain_models_prediction(brain_Images=file_path)
-            
-            return render_template(result, data=data, user_image=file_path)
+            file_path = 'userUpload/' + filename
+            file_path_full = 'static/' + file_path
+            file.save(file_path_full)
+            data=brain_models_prediction(brain_Images=file_path_full)
+            file_url = url_for('static', filename=file_path)
+            return render_template(result, data=data, user_image=file_url)
         elif disease=='skin':
             file=request.files['image']
             filename=file.filename
@@ -287,10 +304,12 @@ def predict(disease):
                 flash(flash_msz, "error")
                 
                 return render_template('index.html')
-            file_path = os.path.join(uploadedimges, filename)
-            file.save(file_path)
-            data=skin_models_prediction( skin_Images=file_path)
-            return render_template(result, data=data, user_image=file_path)
+            file_path = 'userUpload/' + filename
+            file_path_full = 'static/' + file_path
+            file.save(file_path_full)
+            data=skin_models_prediction( skin_Images=file_path_full)
+            file_url = url_for('static', filename=file_path)
+            return render_template(result, data=data, user_image=file_url)
 #---------------------------------------------------------------------------------------------------------
 
 #-----------------------------------------------------------------------------------------------------------
