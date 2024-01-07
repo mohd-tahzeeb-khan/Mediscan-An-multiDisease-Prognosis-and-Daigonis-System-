@@ -192,31 +192,54 @@ def diabetes():
     if request.method=='GET':
         return render_template("diabetesform.html")
     elif request.method=='POST':
-        data=request.form
+        # data=request.form
         age = request.form['age']
         hypertension= request.form['hypertension']
-        hba1c = float(request.form['hba1c'])
+        hba1c = request.form['hba1c']
         gendervalue = request.form['gender']
         if(gendervalue=="Female"):
             gender=0
         else:
             gender=1
         smokingHistory = request.form['smokingHistory']
-        if(smokingHistory=="never"):
-            smoke=4
-        elif(smokingHistory=="current"):
-            smoke=1
-        elif(smokingHistory=="formal"):
-            smoke=3
-        else:
-            smoke=0
+        # if(smokingHistory=="never"):
+        #     smoke=4
+        # elif(smokingHistory=="current"):
+        #     smoke=1
+        # elif(smokingHistory=="formal"):
+        #     smoke=3
+        # else:
+        #     smoke=0
         heartDisease = request.form['heartDisease']
+        # if(heartDisease=='no'):
+        #     heartDisease=0
+        # else:
+        #     heartDisease=1
         weight = int(request.form['weight'])
         bloodGlucose=int(request.form['bloodGlucose'])
-        bmi=float(request.form['BMI'])
-        to_predict = np.array([gender, age, hypertension, heartDisease, smoke, bmi, hba1c, bloodGlucose])
+        bmi=request.form['BMI']
+        # to_predict = np.array([gender, age, hypertension, heartDisease, smoke, bmi, hba1c, bloodGlucose])
+        to_predict = [[gender, age, hypertension, heartDisease, smokingHistory, bmi, hba1c, bloodGlucose]]
         result = diabetes_model.predict(X=to_predict)
         print(result)
+        if(result==0):
+            print("No diabetes")
+            data={
+            "disease":"No Risk of Diabetes",
+            "abstraction":"In people without diabetes, achieving target blood sugar levels has several key health benefits: Helps prevent weight gain, or achieve weight loss goals. Reduces the risk of insulin resistance and type 2 diabetes. Reduced stress hormones and inflammation.",
+            "symptoms_define":"",
+            "symptoms_list":"",
+            "treatment":""
+            }
+        else:
+            print("diabetes")
+            data={
+            "disease":"Risk of Diabetes",
+            "abstraction":"Diabetes mellitus, especially type 2 diabetes, is an epidemic requiring global attention as a cardiovascular disease (CVD) risk. In addition to well-known microvascular complications such as retinopathy or nephropathy, diabetes confers the substantial burden of CVD morbidity and mortality through macrovascular complications even in early- or pre-stages. Because of its asymptomatic onset and progression, population-based screening is essential for early detection of diabetes mellitus before the development of vascular complications, including CVD. Many modifiable risk factors such as hyperglycemia, hypertension, or dyslipidemia must be adequately and simultaneously controlled for prevention of CVDs in people with established diabetes mellitus.",
+            "symptoms_define":"Diabetes symptoms depend on how high your blood sugar is. Some people, especially if they have prediabetes, gestational diabetes or type 2 diabetes, may not have symptoms. In type 1 diabetes, symptoms tend to come on quickly and be more severe.",
+            "symptoms_list":"<li>Urinate (pee) a lot, often at night</li><li>Lose Weight without trying</li><li>Have Blurry Vision</li><li>Have numb or tingling hands or feet</li><li>have a very dry skin(Abnormally)</li>",
+            "treatment":"Type 1 diabetes can't be prevented. But the healthy lifestyle choices that help treat prediabetes, type 2 diabetes and gestational diabetes can also help prevent them:<br><li>Eat healthy foods.</li><li>Lose excess Weight.</li><li>Get involved in Physical Activity.</li>"
+            }
         return render_template("diabetesform.html")
 
 @app.route("/heart", methods=['GET','POST'])
@@ -224,7 +247,7 @@ def heart():
     if request.method=='GET':
         return render_template("heartform.html")
     elif request.method=='POST':
-        Age=int(request.form['age']),
+        Age=int(request.form['age'])
         sex =request.form['gender']
         if sex=='male':
             sexno=1
@@ -233,13 +256,13 @@ def heart():
         else:
             sexno=1
         chestPainType =int(request.form['chestpain'])
-        RestingBP = int(request.form['BP']),
-        cholesterol =int(request.form['Cholesterol']),
-        FastingBS=int(request.form['bloodsugar']),
+        RestingBP = int(request.form['BP'])
+        cholesterol =int(request.form['Cholesterol'])
+        FastingBS=int(request.form['bloodsugar'])
         RestingECG=int(request.form['ECG'])
-        MaxHR =int(request.form['MaxHR']),
+        MaxHR =int(request.form['MaxHR'])
         ExerciseAngina=int(request.form['ExerciseAngina'])
-        Oldpeak=float(request.form['OldPeak']),
+        Oldpeak=float(request.form['OldPeak'])
         ST_Slope=int(request.form['stslope'])
     
         # Include Sex in the input data
@@ -267,6 +290,68 @@ def heart():
             "treatment":"The same lifestyle changes used to manage heart disease may also help prevent it. Try these heart-healthy tips:<br><li>Don't smoke.</li><li>Eat a diet that's low in salt and saturated fat.</li><li>Exercise at least 30 minutes a day on most days of the week.</li><li>Maintain a healthy weight.</li><li>Reduce and manage stress.</li><li>Control high blood pressure, high cholesterol and diabetes.</li><li>Get good sleep. Adults should aim for 7 to 9 hours daily.</li>"
             }
             return render_template(result, data=data)
+    # if request.method=='GET':
+    #     return render_template("heartform.html")
+    # elif request.method=='POST':
+    #     Age=int(request.form['age'])
+    #     sex =request.form['gender']
+    #     if sex=='male':
+    #         sexno=1
+    #     elif sex=='female':
+    #         sexno=0
+    #     else:
+    #         sexno=1
+    #     chestPainType =int(request.form['chestpain'])
+    #     RestingBP = int(request.form['BP'])
+    #     cholesterol =int(request.form['Cholesterol'])
+    #     FastingBS=int(request.form['bloodsugar'])
+    #     RestingECG=int(request.form['ECG'])
+    #     MaxHR =int(request.form['MaxHR'])
+    #     ExerciseAngina=int(request.form['ExerciseAngina'])
+    #     Oldpeak=float(request.form['OldPeak'])
+    #     ST_Slope=int(request.form['stslope'])
+    
+    #     # Include Sex in the input data
+        
+
+    #     print(Age)
+    #     print(sex)
+    #     print(sexno)
+    #     print(chestPainType)
+    #     print(RestingBP)
+    #     print(cholesterol)
+    #     print(FastingBS)
+    #     print(RestingECG)
+    #     print(MaxHR)
+    #     print(ExerciseAngina)
+    #     print(Oldpeak)
+    #     print(ST_Slope)
+
+    #     input_data = [[Age, sexno, chestPainType, RestingBP, cholesterol, FastingBS, RestingECG, MaxHR, ExerciseAngina, Oldpeak, ST_Slope]]
+    #     # Make predictions
+    #     input_data = input_data.reshape(-1, 1)
+    #     prediction = heart_model.predict(input_data)
+    #     # Display the result
+    #     if prediction == 0:
+    #         print("No heart disease")
+    #         data={
+    #         "disease":"Normal Report",
+    #         "abstraction":"A healthy heart is the cornerstone of overall well-being, playing a pivotal role in sustaining life and vitality. The term 'healthy heart' encompasses a state where the heart functions optimally, efficiently pumping blood throughout the body and supplying vital nutrients and oxygen to every cell. Achieving and maintaining a healthy heart involves a multifaceted approach, integrating lifestyle choices, dietary habits, and regular physical activity.",
+    #         "symptoms_define":"Here some ways to tell if your heart is healthy — now and in the future.",
+    #         "symptoms_list":"<li>Controlled Blood Pressure. </li><li>Good Sleep(Around 8 to 9 hours per 24 hours).</li><li>Good Oral Health.</li><li>High Energy Levels.<li>",
+    #         "treatment":""
+    #         }
+    #         return render_template(result, data=data)
+    #     else:
+    #         print("Heart disease")
+    #         data={
+    #         "disease":"Heart Disease",
+    #         "abstraction":"The diagnosis of heart disease in most cases depends on a complex combination of clinical and pathological data. Because of this complexity, there exists a significant amount of interest among clinical professionals and researchers regarding the efficient and accurate prediction of heart disease. In this paper, we develop a heart disease predict system that can assist medical professionals in predicting heart disease status based on the clinical data of patients. Our approaches include three steps. Firstly, we select 13 important clinical features, i.e., age, sex, chest pain type, trestbps, cholesterol, fasting blood sugar, resting ecg, max heart rate, exercise induced angina, old peak, slope, number of vessels colored, and thal. Secondly, we develop an artificial neural network algorithm for classifying heart disease based on these clinical features. The accuracy of prediction is near 80%. Finally, we develop a user-friendly heart disease predict system (HDPS). The HDPS system will be consisted of multiple features, including input clinical data section, ROC curve display section, and prediction performance display section (execute time, accuracy, sensitivity, specificity, and predict result). Our approaches are effective in predicting the heart disease of a patient. The HDPS system developed in this study is a novel approach that can be used in the classification of heart disease.",
+    #         "symptoms_define":"Coronary artery disease is a common heart condition that affects the major blood vessels that supply the heart muscle. Cholesterol deposits (plaques) in the heart arteries are usually the cause of coronary artery disease. The buildup of these plaques is called atherosclerosis (ath-ur-o-skluh-ROE-sis). Atherosclerosis reduces blood flow to the heart and other parts of the body. It can lead to a heart attack, chest pain (angina) or stroke.<br> Coronary artery disease symptoms may be different for men and women. For instance, men are more likely to have chest pain. Women are more likely to have other symptoms along with chest discomfort, such as shortness of breath, nausea and extreme fatigue.",
+    #         "symptoms_list":"<li>Chest pain, chest tightness, chest pressure and chest discomfort (angina)</li><li>Shortness of breath</li><li>Pain in the neck, jaw, throat, upper belly area or back</li><li>Pain, numbness, weakness or coldness in the legs or arms if the blood vessels in those body areas are narrowed</li>",
+    #         "treatment":"The same lifestyle changes used to manage heart disease may also help prevent it. Try these heart-healthy tips:<br><li>Don't smoke.</li><li>Eat a diet that's low in salt and saturated fat.</li><li>Exercise at least 30 minutes a day on most days of the week.</li><li>Maintain a healthy weight.</li><li>Reduce and manage stress.</li><li>Control high blood pressure, high cholesterol and diabetes.</li><li>Get good sleep. Adults should aim for 7 to 9 hours daily.</li>"
+    #         }
+    #         return render_template(result, data=data)
 #-----------------------------------------------------------------------------------------------------------
 @app.route("/predict/<disease>", methods=['POST'])
 def predict(disease):
